@@ -1,19 +1,17 @@
 <template>
   <div>
     <Header></Header>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/> -->
+    <PostList></PostList>
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
+import PostList from './components/PostList'
 export default {
   components: {
-    Header
+    Header,
+    PostList
   }
 }
 </script>
@@ -22,6 +20,7 @@ export default {
   html,body {
     padding: 0;
     margin: 0;
+    background-color: #e1e1e1;
   }
 
 </style>
