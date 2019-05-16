@@ -10,9 +10,7 @@
           <span :class="{'current-tab':tab==='ask'}" @click="changeTab('ask')">问答</span>
           <span :class="{'current-tab':tab==='job'}" @click="changeTab('job')">招聘</span>
         </li>
-          <div v-if="isLoading" class="loading">
-            <span class="iconfont icon-loading"></span>
-          </div>
+        <Loading v-if="isLoading"></Loading>
         <div v-else>
             <li v-for="(post,index) in posts" :key="index">
             <img class="avatar" :src="post.author.avatar_url" :alt="post.author.login_name">
@@ -48,8 +46,12 @@
 </template>
 
 <script>
+import Loading from './Loading'
 export default {
   name: 'PostList',
+  components: {
+    Loading
+  },
   data() {
     return {
       isLoading: false,
@@ -93,19 +95,6 @@ export default {
         list-style: none;
         max-width: 1344px;
         margin: 0 auto;
-        .loading {
-          text-align: center;
-          @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-          .iconfont {
-            font-size: 30px;
-            color: rgba(0,0,0,.3);
-            display: inline-block;
-            animation: 1s rotate linear infinite;
-          }
-        }
         li {
           padding: 10px;
           font-size: 15px;
