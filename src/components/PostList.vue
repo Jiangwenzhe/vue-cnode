@@ -10,10 +10,10 @@
           <span :class="{'current-tab':tab==='ask'}" @click="changeTab('ask')">问答</span>
           <span :class="{'current-tab':tab==='job'}" @click="changeTab('job')">招聘</span>
         </li>
-        <div>
-          <div v-if="isLoading" class="loading"><span class="iconfont icon-loading"></span></div>
-        </div>
-        <div v-if="!isLoading">
+          <div v-if="isLoading" class="loading">
+            <span class="iconfont icon-loading"></span>
+          </div>
+        <div v-else>
             <li v-for="(post,index) in posts" :key="index">
             <img class="avatar" :src="post.author.avatar_url" :alt="post.author.login_name">
             <!-- 回复/浏览量 -->
