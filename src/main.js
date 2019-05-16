@@ -7,12 +7,6 @@ import Axios from 'axios'
 Vue.config.productionTip = false
 Vue.prototype.$axios = Axios
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
-
 Vue.filter('formatDate', function (str) {
   if (!str) return ''
   var date = new Date(str)
@@ -50,4 +44,11 @@ if(post.good == true){
   return '招聘'
 }
 })
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
 
