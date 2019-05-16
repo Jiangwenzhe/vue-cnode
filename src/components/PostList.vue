@@ -29,7 +29,15 @@
               </span>
             </span>
             <!-- 文章标题 -->
-            <span> {{ post.title }}</span>
+            <router-link :to="{
+              name: 'postContent',
+              params: {
+                id: post.id,
+                name: post.author.loginname
+              }
+            }">
+              <span>{{ post.title }}</span>
+            </router-link>
             <!-- 最终回复时间 -->
             <span class="last-reply">{{ post.last_reply_at | formatDate }}</span>
           </li>
@@ -112,22 +120,22 @@ export default {
             background-color: #f6f6f6;
             padding: 10px;
             border-radius: 3px 3px 0 0;
-          span {
-            font-size: 14px;
-            color: #80bd01;
-            margin: 0 10px;
-            cursor: pointer;
-            &.current-tab {
-              background-color: #80bd01;
-              color: #fff;
-              padding: 1px 4px;
-              border-radius: 3px;
-            }
-            &:hover {
-              color: #08c;
+            span {
+              font-size: 14px;
+              color: #80bd01;
+              margin: 0 10px;
+              cursor: pointer;
+              &.current-tab {
+                background-color: #80bd01;
+                color: #fff;
+                padding: 1px 4px;
+                border-radius: 3px;
+              }
+              &:hover {
+                color: #08c;
+              }
             }
           }
-        }
           &:not(:first-child):hover {
             background: #f5f5f5;;
           }
@@ -172,6 +180,13 @@ export default {
             -o-border-radius: 3px;
             font-size: 12px;
             margin-right: 10px;
+          }
+          a {
+            text-decoration: none;
+            color: black;
+            &:hover {
+              text-decoration: underline;
+            }
           }
           .last-reply {
             flex: 1;
