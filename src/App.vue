@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <PostList></PostList>
+    <router-view></router-view>
   </div>
 </template>
 
