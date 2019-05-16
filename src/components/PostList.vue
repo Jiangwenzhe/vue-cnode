@@ -13,7 +13,13 @@
         <Loading v-if="isLoading"></Loading>
         <div v-else>
             <li v-for="(post,index) in posts" :key="index">
-            <img class="avatar" :src="post.author.avatar_url" :alt="post.author.login_name">
+            <router-link :to="{
+            name:'userInfo',
+            params:{
+              name:post.author.loginname
+            }}">
+              <img class="avatar" :src="post.author.avatar_url" :alt="post.author.login_name">
+            </router-link>
             <!-- 回复/浏览量 -->
             <span class="all-count">
               <span class="reply-count">{{ post.reply_count }}</span>
