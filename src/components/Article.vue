@@ -1,39 +1,42 @@
 <template>
-  <Loading v-if="isLoading"></Loading>
-  <div  v-else class="main">
-    <div class="article">
-      <!-- loading条 -->
-      <div class="topic-header">
-        <div class="topic-title">{{ post.title }}</div>
-          <ul>
-            <li>• 发布于 {{ post.create_at | formatDate }}</li>
-            <li>• 作者：{{ post.author.loginname }}</li>
-            <li>• {{ post.visit_count }}次浏览</li>
-            <li>• 来自 {{ post | tabFormatter }}</li>
-          </ul>
-        <div class="content" v-html="post.content"></div>
-      </div>
-      <div class="reply">
-        <div class="top-bar">{{post.reply_count}} 回复</div>
-          <div class="reply-section" v-for="(reply, index) in post.replies" :id="reply.id" :key="index">
-            <div class="reply-up">
-                <img :src="reply.author.avatar_url">
-              <router-link :to="{
-              name:'userInfo',
-              params:{
-                name:reply.author.loginname
-              }}">
-                <span class="user-name">  {{ reply.author.loginname}}</span>
-              </router-link>&nbsp;
-              <a class="reply-index" :href="`#${reply.id}`">{{ index+1 }}楼•{{ post.create_at | formatDate}}</a>
-              <span class="thumbs-up" v-if="reply.ups.length>0" @click="handleLikeBtn">
-                <span class="iconfont icon-like"></span>
-                {{reply.ups.length}}
-              </span>
-              <span v-else></span>
+  <div>
+    <Loading v-if="isLoading"></Loading>
+    <div  v-else class="main clearfix">
+      <SideBar></SideBar>
+      <div class="article">
+        <!-- loading条 -->
+        <div class="topic-header">
+          <div class="topic-title">{{ post.title }}</div>
+            <ul>
+              <li>• 发布于 {{ post.create_at | formatDate }}</li>
+              <li>• 作者：{{ post.author.loginname }}</li>
+              <li>• {{ post.visit_count }}次浏览</li>
+              <li>• 来自 {{ post | tabFormatter }}</li>
+            </ul>
+          <div class="content" v-html="post.content"></div>
+        </div>
+        <div class="reply">
+          <div class="top-bar">{{post.reply_count}} 回复</div>
+            <div class="reply-section" v-for="(reply, index) in post.replies" :id="reply.id" :key="index">
+              <div class="reply-up">
+                  <img :src="reply.author.avatar_url">
+                <router-link :to="{
+                name:'userInfo',
+                params:{
+                  name:reply.author.loginname
+                }}">
+                  <span class="user-name">  {{ reply.author.loginname}}</span>
+                </router-link>&nbsp;
+                <a class="reply-index" :href="`#${reply.id}`">{{ index+1 }}楼•{{ post.create_at | formatDate}}</a>
+                <span class="thumbs-up" v-if="reply.ups.length>0" @click="handleLikeBtn">
+                  <span class="iconfont icon-like"></span>
+                  {{reply.ups.length}}
+                </span>
+                <span v-else></span>
+              </div>
+              <div class="reply-content" v-html="reply.content"></div>
             </div>
-            <div class="reply-content" v-html="reply.content"></div>
-          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -41,10 +44,12 @@
 
 <script>
 import Loading from './Loading'
+import SideBar from './SideBar'
 export default {
   name: 'Article',
   components: {
-    Loading
+    Loading,
+    SideBar
   },
   data() {
     return {
@@ -71,12 +76,22 @@ export default {
   },
   mounted() {
     this.getArticleData()
+  },
+  watch: {
+    '$route'() {
+      this.getArticleData()
+    }
   }
 }
 </script>
 
 <style lang="scss">
   @import url('../assets/github-markdown.css');
+  .clearfix {
+    content: '';
+    display: block;
+    clear: both;
+  }
   .main {
     width: 90%;
     max-width: 1400px;
