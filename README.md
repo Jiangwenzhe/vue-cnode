@@ -1,4 +1,4 @@
-# vue-cnode
+# vue-cnode [预览网址](https://jiangwenzhe.github.io/vue-cnode/#/)
 
 **一个仿cnode的项目：技术栈为 `Vue + Vuex + Vue Router`**
 
