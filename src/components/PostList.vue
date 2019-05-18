@@ -46,6 +46,7 @@
             <span class="last-reply">{{ post.last_reply_at | formatDate }}</span>
           </li>
         </div>
+         <li v-show="!isLoading"><Pagination :page="postPage" @handleChangePage="changePage"></Pagination></li>
       </ul>
     </div>
   </div>
@@ -53,16 +54,19 @@
 
 <script>
 import Loading from './Loading'
+import Pagination from './Pagination'
 export default {
   name: 'PostList',
   components: {
-    Loading
+    Loading,
+    Pagination
   },
   data() {
     return {
       isLoading: false,
       tab: '',
-      posts: []
+      posts: [],
+      postPage: 1
     }
   },
   methods: {
@@ -71,7 +75,7 @@ export default {
       this.$axios.get('https://cnodejs.org/api/v1/topics',{
         params: {
           tab: this.tab,
-          page: 1,
+          page: this.postPage,
           limit: 20
         }
       }).then(res => {
@@ -82,6 +86,12 @@ export default {
     },
     changeTab(tabName) {
       this.tab = tabName
+      this.postPage = 1
+      this.getPostData()
+    },
+    changePage(value) {
+      console.log('in PostList---, currentpage is ', value)
+      this.postPage = value
       this.getPostData()
     }
   },
